@@ -4,8 +4,8 @@ all:V: $PWD/raylib.stamp $PWD/editline.stamp
 
 $PWD/raylib.stamp:
   set -euo pipefail
-  #
   pushd raylib
+    git submodule update
     rm -rf build/
     mkdir -p build/
     pushd build/
@@ -17,8 +17,8 @@ $PWD/raylib.stamp:
 
 $PWD/editline.stamp:
   set -euo pipefail
-  #
   pushd editline
+    git submodule update
     ./autogen.sh
     ./configure --disable-shared --disable-default-complete
     make
