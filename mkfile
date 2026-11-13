@@ -1,6 +1,8 @@
 MKSHELL = bash
 
-all:V: $PWD/raylib.stamp $PWD/editline.stamp
+usage:QV:
+  echo 'Specify individual targets (or allow them to be transitively fetched)' 2>&1
+  false
 
 $PWD/raylib.stamp:
   set -euo pipefail
