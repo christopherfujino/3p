@@ -7,7 +7,7 @@ usage:QV:
 $PWD/raylib.stamp:
   set -euo pipefail
   pushd raylib
-    git submodule update
+    git submodule update --init
     rm -rf build/
     mkdir -p build/
     pushd build/
@@ -20,7 +20,7 @@ $PWD/raylib.stamp:
 $PWD/editline.stamp:
   set -euo pipefail
   pushd editline
-    git submodule update
+    git submodule update --init
     ./autogen.sh
     ./configure --disable-shared --disable-default-complete
     make
