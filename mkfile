@@ -1,30 +1,35 @@
 MKSHELL = bash
+CC = cc
+CFLAGS =
+LDFLAGS =
 
 usage:QV:
   echo 'Specify individual targets (or allow them to be transitively fetched)' 2>&1
   false
 
-$PWD/raylib.stamp:
+raylib.stamp:
   set -euo pipefail
   pushd raylib
-    git submodule update --init
     rm -rf build/
+    git submodule update --init
     mkdir -p build/
     pushd build/
-      cmake ..
+      cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
       cmake --build .
-    popd
-    echo "$(git rev-parse HEAD)" > "$target"
-  popd
+    popd    # raylib/build/ -> raylib/
+    echo "$(git rev-parse HEAD)" > "../${target}"
+    echo    "CompileFlags:" > .clangd
+    echo -e "  CompilationDatabase: \"$PWD/build/compile_commands.json\"" >> .clangd
+  popd      # 3p/raylib/ -> 3p/
 
-$PWD/editline.stamp:
+editline.stamp:
   set -euo pipefail
   pushd editline
     git submodule update --init
     ./autogen.sh
     ./configure --disable-shared --disable-default-complete
     make
-    echo "$(git rev-parse HEAD)" > "$target"
+    echo "$(git rev-parse HEAD)" > "../${target}"
   popd
 
 odin-lang:
