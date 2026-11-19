@@ -3,9 +3,7 @@ CC = cc
 CFLAGS =
 LDFLAGS =
 
-usage:QV:
-  echo 'Specify individual targets (or allow them to be transitively fetched)' 2>&1
-  false
+all:V: raylib.stamp editline.stamp
 
 raylib.stamp:
   set -euo pipefail
