@@ -9,7 +9,6 @@ raylib.stamp:
   set -euo pipefail
   pushd raylib
     rm -rf build/
-    git submodule update --init
     mkdir -p build/
     pushd build/
       cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -23,7 +22,6 @@ raylib.stamp:
 editline.stamp:
   set -euo pipefail
   pushd editline
-    git submodule update --init
     ./autogen.sh
     ./configure --disable-shared --disable-default-complete
     make
